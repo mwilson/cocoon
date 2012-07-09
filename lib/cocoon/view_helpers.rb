@@ -30,6 +30,19 @@ module Cocoon
       end
     end
 
+    def link_to_show_association(*args, &block)
+      if block_given?
+        f            = args.first
+        html_options = args.second || {}
+        name         = capture(&block)
+        link_to_show_association(name, f, html_options)
+      else
+        name         = args[0]
+        f            = args[1]
+        link_to(name, eval("edit_#{association.to_s.singularize}_path(f.id)"))
+      end
+    end
+
     # :nodoc:
     def render_association(association, f, new_object, render_options={}, custom_partial=nil)
       partial = get_partial_path(custom_partial, association)
