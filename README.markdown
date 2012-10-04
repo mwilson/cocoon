@@ -9,6 +9,8 @@ For example a project with its tasks, an invoice with its ordered items.
 
 It is formbuilder-agnostic, so it works with standard Rails, or Formtastic or simple_form.
 
+This project is not related to [Apache Cocoon](http://cocoon.apache.org/)
+
 ## Prerequisites
 
 This gem uses jQuery, it is most useful to use this gem in a rails3
@@ -96,7 +98,7 @@ We will show the sample usage with the different possible form-builders.
 Inside our `projects/_form` partial we then write:
 
 ````haml
-- f.inputs do
+= f.inputs do
   = f.input :name
   = f.input :description
   %h3 Tasks
@@ -105,7 +107,7 @@ Inside our `projects/_form` partial we then write:
       = render 'task_fields', :f => task
     .links
       = link_to_add_association 'add task', f, :tasks
-  -f.actions do
+  = f.actions do
     = f.action :submit
 ````
 
@@ -125,10 +127,31 @@ There is an example project on github implementing it called [cocoon_formtastic_
 
 ### Using simple_form
 
-This is almost identical to formtastic, instead of writing `semantic_fields_for` you write `simple_fields_for`.
+Inside our `projects/_form` partial we then write:
+
+````haml
+= simple_form_for @project do |f|
+  = f.input :name
+  = f.input :description
+  %h3 Tasks
+  #tasks
+    = f.simple_fields_for :tasks do |task|
+      = render 'task_fields', :f => task
+    .links
+      = link_to_add_association 'add task', f, :tasks
+  = f.submit
+````
+
+and inside the `_task_fields` partial we write:
+
+````haml
+.nested-fields
+  = f.input :description
+  = f.input :done, :as => :boolean
+  = link_to_remove_association "remove task", f
+````
 
 There is an example project on github implementing it called [cocoon_simple_form_demo](https://github.com/nathanvda/cocoon_simple_form_demo).
-
 
 ### Using standard rails forms
 
@@ -164,6 +187,8 @@ Optionally you could also leave out the name and supply a block that is captured
 Inside the `html_options` you can add an option `:render_options`, and the containing hash will be handed down to the form-builder for the inserted
 form. E.g. especially when using `twitter-bootstrap` and `simple_form` together, the `simple_fields_for` needs the option `:wrapper => 'inline'` which can
 be handed down as follows:
+
+(Note: In certain newer versions of simple_form, the option to use is ':wrapper => 'bootstrap')
 
 ````haml
 = link_to_add_association 'add something', f, :something, :render_options => {:wrapper => 'inline' }
@@ -288,3 +313,9 @@ There is no limit to the amount of nesting, though.
 ## Copyright
 
 Copyright (c) 2010 Nathan Van der Auwera. See LICENSE for details.
+
+## Not Related To Apache Cocoon
+
+Please note that this project is not related to the Apache Cocoon web framework project. 
+
+[Apache Cocoon](http://cocoon.apache.org/), Cocoon, and Apache are either registered trademarks or trademarks of the [Apache Software Foundation](http://www.apache.org/) in the United States and/or other countries.
