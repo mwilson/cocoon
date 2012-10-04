@@ -26,7 +26,7 @@ module Cocoon
 
         is_dynamic = f.object.new_record?
         html_options[:class] = [html_options[:class], "remove_fields #{is_dynamic ? 'dynamic' : 'existing'}"].compact.join(' ')
-        hidden_field_tag("#{f.object_name}[_destroy]") + link_to(name, '#', html_options)
+        hidden_field_tag("#{f.object_name}[_destroy]") + button_to(name, '#', html_options)
       end
     end
 
@@ -39,7 +39,7 @@ module Cocoon
       else
         name         = args[0]
         f            = args[1]
-        link_to(name, eval("edit_#{association.to_s.singularize}_path(f.id)"))
+        button_to(name, eval("edit_#{association.to_s.singularize}_path(f.id)"))
       end
     end
 
@@ -88,7 +88,7 @@ module Cocoon
         new_object = create_object(f, association)
         html_options[:'data-template'] = CGI.escapeHTML(render_association(association, f, new_object, render_options, override_partial)).html_safe
 
-        link_to(name, '#', html_options )
+        button_to(name, '#', html_options )
       end
     end
 
