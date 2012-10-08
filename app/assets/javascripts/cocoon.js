@@ -52,7 +52,7 @@
     insertionNode.trigger('insertion-callback');
   });
 
-  $('.remove_fields.dynamic').live('click', function(e) {
+  $('.remove_cocoon_fields.dynamic').live('click', function(e) {
     var $this = $(this);
     var trigger_node = $this.closest(".nested-fields").parent();
     trigger_removal_callback(trigger_node);
@@ -61,7 +61,7 @@
     trigger_after_removal_callback(trigger_node);
   });
 
-  $('.remove_fields.existing').live('click', function(e) {
+  $('.remove_cocoon_fields.existing').live('click', function(e) {
     var $this = $(this);
     var trigger_node = $this.closest(".nested-fields").parent().parent();
     trigger_removal_callback(trigger_node);
