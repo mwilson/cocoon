@@ -81,7 +81,7 @@ module Cocoon
         render_options ||= {}
         override_partial = html_options.delete(:partial)
 
-        html_options[:class] = [html_options[:class], "add_fields"].compact.join(' ')
+        html_options[:class] = [html_options[:class], "add_cocoon_fields"].compact.join(' ')
         html_options[:'data-association'] = association.to_s.singularize
         html_options[:'data-associations'] = association.to_s.pluralize
 

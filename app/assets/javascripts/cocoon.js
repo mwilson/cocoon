@@ -13,7 +13,7 @@
     node.trigger('after-removal-callback');
   }
 
-  $('.add_fields').live('click', function(e) {
+  $('.add_cocoon_fields').live('click', function(e) {
     e.preventDefault();
     var $this                 = $(this),
         assoc                 = $this.data('association'),
