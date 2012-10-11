@@ -30,6 +30,23 @@ module Cocoon
       end
     end
 
+    def checkbox_to_remove_association(*args, &block)
+      if block_given?
+        f            = args.first
+        html_options = args.second || {}
+        name         = capture(&block)
+        checkbox_to_remove_association(name, f, html_options)
+      else
+        name         = args[0]
+        f            = args[1]
+        html_options = args[2] || {}
+
+        is_dynamic = f.object.new_record?
+        check_box_tag(name, f, false)
+      end
+ 
+    end
+
     def link_to_show_association(*args, &block)
       if block_given?
         f            = args.first
